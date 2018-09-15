@@ -7,6 +7,7 @@ gem 'rake'
 gem 'sequel'
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'steak'
 gem 'sqlite3'
 
 group :test do

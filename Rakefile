@@ -14,7 +14,10 @@ namespace :test do
   task :spec do
     sh 'rm geniuses.db'
     sh 'rake db:migrate'
+    sh 'rspec spec/models_test/genius_test.rb'
+    sh 'rspec spec/models_test/invention_test.rb'
     sh 'rspec spec/spec_test_app.rb'
+    sh 'rspec spec/visit_test.rb'
   end
 end
 task :run do

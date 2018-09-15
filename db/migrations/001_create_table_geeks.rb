@@ -1,11 +1,11 @@
 Sequel.migration do
   change do
-    create_table :geniuses do # crazy geniuses
+    create_table :geniuses do
       primary_key :id
       String :name, unique: true
-      Integer :try_kill, null: false # attempts to destroy the galaxy
-      Integer :crazy, null: false # crazy index
-      DateTime :created, null: false # Data and Time creating
+      Integer :try_kill, null: false
+      Integer :crazy, null: false
+      DateTime :created, null: false
     end
   end
 end
