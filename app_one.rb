@@ -11,15 +11,17 @@ get '/' do
 end
 
 get '/crazy/:id/invents' do
-  @genius = Genius.first(id: params[:id]).invents
-  @genius ? @genius.to_json : { 'message' => 'Записей не найдено' }.to_json
+  if @genius = Genius.first(id: params[:id])
+    @genius.invents_dataset.to_json
+  else
+    { 'message' => 'Записей не найдено' }.to_json
+  end
 end
 
 get '/crazy/:id/invents/:key' do
   @genius = Genius.first(id: params[:id]).invents_dataset.first(id: params[:key])
-  @genius ? @genius.to_json : { 'message' => 'Запиись не найдена' }.to_json
+  @genius ? @genius.to_json : { 'message' => 'Запись не найдена' }.to_json
 end
-
 
 get '/crazy/:id' do
   @genius = Genius.first(id: params[:id])
@@ -34,14 +36,12 @@ post '/add' do
   succes_two = Invent.create(name_arm: data['name_arm'], power: data['power'], added: DateTime.now,
                              genius_id: data['key_id'])
 
-
   if success_one && succes_two
     redirect '/'
   else
     json crazy.errors.full_message
   end
 end
-
 
 post '/crazy/:id/add' do
   request.body.rewind
@@ -79,8 +79,7 @@ delete '/crazy/:id' do      # Delete Genius & Invent
   end
 end
 
-
-delete '/crazy/:id/:key' do      # Delete Genius & Invent
+delete '/crazy/:id/:key' do      # Delete the Invent of a Genius
   crazy = Genius.first(id: params[:id]).invents_dataset.first(id: params[:key])
   if crazy.destroy
     redirect '/'
@@ -88,4 +87,3 @@ delete '/crazy/:id/:key' do      # Delete Genius & Invent
     json crazy.errors.full_message
   end
 end
-

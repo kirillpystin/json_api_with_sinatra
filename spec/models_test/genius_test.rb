@@ -7,8 +7,8 @@ describe 'genius' do
 
   it 'create object' do
     @genius = Genius.create(name: 'Dr. Farworoth', try_kill: 40, crazy: 50, created: Time.now)
-    @genius.created ? 'Оk' : @genius.error.full_message
     expect(@genius).to be_valid
+    puts (@genius.created ? "Genius(id:1) created" : @genius.error.full_message)
   end
 
   it 'valodation' do
@@ -16,6 +16,6 @@ describe 'genius' do
     expect(genius.name).to eq("Dr. Farworoth")
     expect(genius.try_kill).to eq(40)
     expect(genius.crazy).to eq(50)
-    puts "Step-1. Model validation"
+    puts "Step-1. Genius(id:1) validation"
   end
 end
